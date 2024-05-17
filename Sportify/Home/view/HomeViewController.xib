@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Sportify" customModuleProvider="target">
+            <connections>
+                <outlet property="sportCollectionView" destination="lMo-s6-N34" id="L9r-mj-yXv"/>
+                <outlet property="sportCollectionViewLayout" destination="8YE-ua-2xX" id="6Cl-q4-UvQ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="lMo-s6-N34">
+                    <rect key="frame" x="8" y="250.66666666666669" width="377" height="567.33333333333326"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8YE-ua-2xX">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sportify" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmG-F2-GqU">
+                    <rect key="frame" x="0.0" y="59" width="393" height="41.666666666666657"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" systemColor="systemBlueColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="lMo-s6-N34" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="EkL-s7-lx0"/>
+                <constraint firstItem="rmG-F2-GqU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="FhX-TX-Fs5"/>
+                <constraint firstItem="lMo-s6-N34" firstAttribute="top" secondItem="rmG-F2-GqU" secondAttribute="bottom" constant="150" id="RVA-ve-JBE"/>
+                <constraint firstItem="lMo-s6-N34" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="TkX-Bd-yUA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rmG-F2-GqU" secondAttribute="trailing" id="rqu-Av-xgg"/>
+                <constraint firstAttribute="trailing" secondItem="lMo-s6-N34" secondAttribute="trailing" constant="8" id="wxf-ZU-r0q"/>
+                <constraint firstItem="rmG-F2-GqU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="y2L-M0-Iga"/>
+            </constraints>
+            <point key="canvasLocation" x="104.58015267175573" y="-11.267605633802818"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

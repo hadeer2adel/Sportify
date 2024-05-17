@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="eventCell" id="gTV-IL-0wX" customClass="EventCell" customModule="Sportify" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="150"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeamLogo" translatesAutoresizingMaskIntoConstraints="NO" id="jm9-y3-CLk">
+                        <rect key="frame" x="8" y="8" width="120" height="105"/>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeamLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ADL-xk-ytG">
+                        <rect key="frame" x="272" y="8" width="120" height="105"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real Madrid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi1-rS-bmZ">
+                        <rect key="frame" x="232" y="121" width="160" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2024-05-06" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSn-1S-B14">
+                        <rect key="frame" x="120" y="8" width="160" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 Pm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYa-sW-Zju">
+                        <rect key="frame" x="120" y="29" width="160" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 - 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWd-ui-M5K">
+                        <rect key="frame" x="120" y="62" width="160" height="24"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Liverpool" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJv-pU-Gmq">
+                        <rect key="frame" x="8" y="120.99999999999999" width="160" height="19.333333333333329"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="fi1-rS-bmZ" firstAttribute="width" secondItem="NJv-pU-Gmq" secondAttribute="width" id="4Ve-bQ-Tde"/>
+                <constraint firstItem="ADL-xk-ytG" firstAttribute="width" secondItem="jm9-y3-CLk" secondAttribute="width" id="6bf-in-HBw"/>
+                <constraint firstItem="HYa-sW-Zju" firstAttribute="top" secondItem="uSn-1S-B14" secondAttribute="bottom" constant="4" id="6i4-dd-rAY"/>
+                <constraint firstItem="jm9-y3-CLk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="ALK-pU-s5h"/>
+                <constraint firstItem="uSn-1S-B14" firstAttribute="top" secondItem="jm9-y3-CLk" secondAttribute="top" id="BuN-3z-9BT"/>
+                <constraint firstItem="IWd-ui-M5K" firstAttribute="top" secondItem="HYa-sW-Zju" secondAttribute="bottom" constant="16" id="C0y-38-8hV"/>
+                <constraint firstItem="uSn-1S-B14" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.4" id="Cb9-8q-qXe"/>
+                <constraint firstItem="fi1-rS-bmZ" firstAttribute="top" secondItem="ADL-xk-ytG" secondAttribute="bottom" constant="8" id="FfC-Ew-r7p"/>
+                <constraint firstItem="IWd-ui-M5K" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="GSc-Re-uLN"/>
+                <constraint firstAttribute="trailing" secondItem="ADL-xk-ytG" secondAttribute="trailing" constant="8" id="HPn-np-Iga"/>
+                <constraint firstItem="NJv-pU-Gmq" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.4" id="JAg-AV-oqx"/>
+                <constraint firstItem="NJv-pU-Gmq" firstAttribute="leading" secondItem="jm9-y3-CLk" secondAttribute="leading" id="Spz-s0-S1R"/>
+                <constraint firstItem="jm9-y3-CLk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="WoH-U9-vWg"/>
+                <constraint firstItem="IWd-ui-M5K" firstAttribute="width" secondItem="HYa-sW-Zju" secondAttribute="width" id="XFD-ho-vHP"/>
+                <constraint firstItem="ADL-xk-ytG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="fsk-ED-KLp"/>
+                <constraint firstItem="fi1-rS-bmZ" firstAttribute="trailing" secondItem="ADL-xk-ytG" secondAttribute="trailing" id="iJV-0Z-y7M"/>
+                <constraint firstItem="HYa-sW-Zju" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="lF6-CK-uhc"/>
+                <constraint firstItem="NJv-pU-Gmq" firstAttribute="top" secondItem="jm9-y3-CLk" secondAttribute="bottom" constant="8" id="nG2-Im-9Fw"/>
+                <constraint firstItem="ADL-xk-ytG" firstAttribute="height" secondItem="jm9-y3-CLk" secondAttribute="height" id="xRv-3f-0ZN"/>
+                <constraint firstItem="HYa-sW-Zju" firstAttribute="width" secondItem="uSn-1S-B14" secondAttribute="width" id="xXg-bU-wUr"/>
+                <constraint firstItem="jm9-y3-CLk" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.7" id="xhx-1v-aIh"/>
+                <constraint firstItem="jm9-y3-CLk" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.3" id="y7d-JI-nGo"/>
+                <constraint firstItem="uSn-1S-B14" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="ztR-2P-Sw2"/>
+            </constraints>
+            <connections>
+                <outlet property="date" destination="uSn-1S-B14" id="fF6-wE-jsG"/>
+                <outlet property="score" destination="IWd-ui-M5K" id="EJ0-fO-Sqg"/>
+                <outlet property="teamImage_1" destination="jm9-y3-CLk" id="9kT-EJ-eub"/>
+                <outlet property="teamImage_2" destination="ADL-xk-ytG" id="Ihr-v3-u90"/>
+                <outlet property="teamName_1" destination="NJv-pU-Gmq" id="WOT-Cm-Cg1"/>
+                <outlet property="teamName_2" destination="fi1-rS-bmZ" id="TLe-MH-0de"/>
+                <outlet property="time" destination="HYa-sW-Zju" id="qAx-d1-0xX"/>
+            </connections>
+            <point key="canvasLocation" x="104" y="-11"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="TeamLogo" width="674" height="680"/>
+    </resources>
+</document>
