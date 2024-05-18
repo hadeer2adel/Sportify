@@ -13,6 +13,16 @@ class TeamCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        //rounded corner
+        contentView.layer.cornerRadius = 50
+        contentView.layer.masksToBounds = true
+        
+        //color rounded border
+        layer.borderColor = UIColor.darkGray.cgColor
+        layer.borderWidth = 0.5
+        layer.cornerRadius = 50
+        clipsToBounds = true
     }
 
 }
