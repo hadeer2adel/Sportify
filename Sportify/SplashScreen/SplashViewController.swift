@@ -6,13 +6,21 @@
 //
 
 import UIKit
+import Lottie
 
 class SplashViewController: UIViewController {
-
+    var ainimation: LottieAnimationView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        ainimation = .init(name: "Sprotifiy.json")
+        ainimation!.frame = view.bounds
+        ainimation!.backgroundColor = .white
+        ainimation!.contentMode = .scaleAspectFit
+        ainimation!.loopMode = .loop
+        ainimation!.play()
+        view.addSubview(ainimation)
     }
 
 
