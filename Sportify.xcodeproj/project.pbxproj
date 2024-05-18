@@ -16,7 +16,10 @@
 		16C2616A2BF670B2005947B1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C261682BF670B2005947B1 /* SplashViewController.swift */; };
 		16C2616B2BF670B2005947B1 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C261692BF670B2005947B1 /* SplashViewController.xib */; };
 		834D8F541829312806DD1897 /* Pods_Sportify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38293C41C04A058196CD2E97 /* Pods_Sportify.framework */; };
-		CAC199B72BF7921900BDE612 /* Sprotifiy.json in Resources */ = {isa = PBXBuildFile; fileRef = CAC199B62BF7921800BDE612 /* Sprotifiy.json */; };
+		CAC199BB2BF7A53C00BDE612 /* LeaguesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAC199BA2BF7A53C00BDE612 /* LeaguesViewController.xib */; };
+		CAC199BC2BF7A53C00BDE612 /* LeaguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC199B92BF7A53C00BDE612 /* LeaguesViewController.swift */; };
+		CAC199BF2BF7A75400BDE612 /* LeaguesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAC199BE2BF7A75400BDE612 /* LeaguesTableViewCell.xib */; };
+		CAC199C02BF7A75400BDE612 /* LeaguesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC199BD2BF7A75400BDE612 /* LeaguesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +35,10 @@
 		16C261692BF670B2005947B1 /* SplashViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		38293C41C04A058196CD2E97 /* Pods_Sportify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sportify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9537C74A99DFA3ED219D6375 /* Pods-Sportify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sportify.release.xcconfig"; path = "Target Support Files/Pods-Sportify/Pods-Sportify.release.xcconfig"; sourceTree = "<group>"; };
-		CAC199B62BF7921800BDE612 /* Sprotifiy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Sprotifiy.json; sourceTree = "<group>"; };
+		CAC199B92BF7A53C00BDE612 /* LeaguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesViewController.swift; sourceTree = "<group>"; };
+		CAC199BA2BF7A53C00BDE612 /* LeaguesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaguesViewController.xib; sourceTree = "<group>"; };
+		CAC199BD2BF7A75400BDE612 /* LeaguesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesTableViewCell.swift; sourceTree = "<group>"; };
+		CAC199BE2BF7A75400BDE612 /* LeaguesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaguesTableViewCell.xib; sourceTree = "<group>"; };
 		EACD7EF03FED138469C103F1 /* Pods-Sportify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sportify.debug.xcconfig"; path = "Target Support Files/Pods-Sportify/Pods-Sportify.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +75,7 @@
 		169A74BF2BF55DF40060DE54 /* Sportify */ = {
 			isa = PBXGroup;
 			children = (
+				CAC199B82BF7A4EB00BDE612 /* LeaguesScreen */,
 				16C261672BF6706A005947B1 /* SplashScreen */,
 				169A74C02BF55DF40060DE54 /* AppDelegate.swift */,
 				169A74C22BF55DF40060DE54 /* SceneDelegate.swift */,
@@ -86,7 +93,6 @@
 			children = (
 				16C261682BF670B2005947B1 /* SplashViewController.swift */,
 				16C261692BF670B2005947B1 /* SplashViewController.xib */,
-				CAC199B62BF7921800BDE612 /* Sprotifiy.json */,
 			);
 			path = SplashScreen;
 			sourceTree = "<group>";
@@ -97,6 +103,17 @@
 				38293C41C04A058196CD2E97 /* Pods_Sportify.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CAC199B82BF7A4EB00BDE612 /* LeaguesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CAC199B92BF7A53C00BDE612 /* LeaguesViewController.swift */,
+				CAC199BA2BF7A53C00BDE612 /* LeaguesViewController.xib */,
+				CAC199BD2BF7A75400BDE612 /* LeaguesTableViewCell.swift */,
+				CAC199BE2BF7A75400BDE612 /* LeaguesTableViewCell.xib */,
+			);
+			path = LeaguesScreen;
 			sourceTree = "<group>";
 		};
 		F4D4FD4275BE7A505DFB7D12 /* Pods */ = {
@@ -170,8 +187,9 @@
 			files = (
 				169A74D02BF55E020060DE54 /* LaunchScreen.storyboard in Resources */,
 				16C2616B2BF670B2005947B1 /* SplashViewController.xib in Resources */,
+				CAC199BF2BF7A75400BDE612 /* LeaguesTableViewCell.xib in Resources */,
 				169A74CD2BF55E020060DE54 /* Assets.xcassets in Resources */,
-				CAC199B72BF7921900BDE612 /* Sprotifiy.json in Resources */,
+				CAC199BB2BF7A53C00BDE612 /* LeaguesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,8 +245,10 @@
 				169A74C52BF55DF40060DE54 /* ViewController.swift in Sources */,
 				169A74CB2BF55DF50060DE54 /* Sportify.xcdatamodeld in Sources */,
 				169A74C12BF55DF40060DE54 /* AppDelegate.swift in Sources */,
+				CAC199C02BF7A75400BDE612 /* LeaguesTableViewCell.swift in Sources */,
 				169A74C32BF55DF40060DE54 /* SceneDelegate.swift in Sources */,
 				16C2616A2BF670B2005947B1 /* SplashViewController.swift in Sources */,
+				CAC199BC2BF7A53C00BDE612 /* LeaguesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
