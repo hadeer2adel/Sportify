@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sportCell" id="gTV-IL-0wX" customClass="SportCell" customModule="Sportify" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basketball" translatesAutoresizingMaskIntoConstraints="NO" id="KY7-5P-y0N">
+                        <rect key="frame" x="16" y="0.0" width="168" height="160"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basketball" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTC-vg-Gg4">
+                        <rect key="frame" x="0.0" y="160" width="200" height="24"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="KY7-5P-y0N" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.8" id="Mdz-ji-hYx"/>
+                <constraint firstItem="KY7-5P-y0N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Qye-36-WnT"/>
+                <constraint firstAttribute="trailing" secondItem="KY7-5P-y0N" secondAttribute="trailing" constant="16" id="et8-II-9ks"/>
+                <constraint firstItem="jTC-vg-Gg4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fOB-Ly-Q6n"/>
+                <constraint firstItem="jTC-vg-Gg4" firstAttribute="top" secondItem="KY7-5P-y0N" secondAttribute="bottom" id="hma-J3-Hl9"/>
+                <constraint firstAttribute="trailing" secondItem="jTC-vg-Gg4" secondAttribute="trailing" id="kDR-fQ-t5U"/>
+                <constraint firstItem="KY7-5P-y0N" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="p0c-cG-A5y"/>
+            </constraints>
+            <connections>
+                <outlet property="sportImage" destination="KY7-5P-y0N" id="BER-9G-b3p"/>
+                <outlet property="sportName" destination="jTC-vg-Gg4" id="TT8-EV-gvS"/>
+            </connections>
+            <point key="canvasLocation" x="103.81679389312977" y="-11.267605633802818"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="basketball" width="177" height="180"/>
+    </resources>
+</document>
