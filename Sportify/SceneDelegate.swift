@@ -29,8 +29,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let tabViewController1 = HomeViewController(
                 nibName: "HomeViewController",
                 bundle: nil)
-            let tabViewController2 = LeagueDetailsViewController(
-                nibName:"LeagueDetailsViewController",
+
+            
+            let tabViewController2 = FavoriteViewController(
+                nibName:"FavoriteViewController",
+
                 bundle: nil)
             
             tabViewController1.tabBarItem = UITabBarItem(
