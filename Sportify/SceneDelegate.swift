@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
         
-        
+        //comment
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let tabBarController = UITabBarController()
             let tabViewController1 = HomeViewController(
