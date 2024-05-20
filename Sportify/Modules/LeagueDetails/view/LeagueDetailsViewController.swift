@@ -221,7 +221,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
             } else {
                 cell.teamImage.image = UIImage(named: "TeamLogo")
             }
-            cell.teamImage.layer.cornerRadius = cell.leagueImage.bounds.width / 2
+            cell.teamImage.layer.cornerRadius = cell.teamImage.bounds.width / 2
             cell.teamImage.clipsToBounds = true
             return cell
         }
