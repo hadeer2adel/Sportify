@@ -26,11 +26,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let tabBarController = UITabBarController()
-            let tabViewController1 = SplashViewController(
-                nibName: "SplashViewController",
+            let tabViewController1 = HomeViewController(
+                nibName: "HomeViewController",
                 bundle: nil)
-            let tabViewController2 = SplashViewController(
-                nibName:"SplashViewController",
+
+            
+            let tabViewController2 = FavoriteViewController(
+                nibName:"FavoriteViewController",
+
                 bundle: nil)
             
             tabViewController1.tabBarItem = UITabBarItem(
