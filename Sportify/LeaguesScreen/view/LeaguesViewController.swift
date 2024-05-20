@@ -6,32 +6,50 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var leagueTable: UITableView!
+    var leagueViewModel: LeagueViewModel?
+    var league : [League]?
+    var sport : String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         leagueTable.register(UINib(nibName: "LeaguesTableViewCell", bundle: nil), forCellReuseIdentifier: "LeagueCell")
-        
+        let word = sport!.prefix(1).uppercased() + sport!.dropFirst() + " Leagues"
+        self.title = word
         leagueTable.estimatedRowHeight = 100
         leagueTable.rowHeight = UITableView.automaticDimension
         
         leagueTable.dataSource = self
         leagueTable.delegate = self
+        
+        leagueViewModel = LeagueViewModel()
+        leagueViewModel?.getLeagues(sportType: sport!)
+        leagueViewModel?.bindResultToViewController = { [weak self] in
+            DispatchQueue.main.async {
+                self?.league = self?.leagueViewModel?.league
+                self?.leagueTable.reloadData()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return league?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeaguesTableViewCell
         
-        cell.leagueName.text = "Premier League"
-        cell.leagueImage.image = UIImage(named: "Premier_League")
+        cell.leagueName.text = league?[indexPath.row].league_name
+        if let logoString = league?[indexPath.row].league_logo, let logoURL = URL(string: logoString) {
+            cell.leagueImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "Cup"))
+        } else {
+            cell.leagueImage.image = UIImage(named: "Cup")
+        }
         cell.leagueImage.layer.cornerRadius = cell.leagueImage.bounds.width / 2
         cell.leagueImage.clipsToBounds = true
         return cell
