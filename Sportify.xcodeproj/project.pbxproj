@@ -121,14 +121,10 @@
 		169A74BF2BF55DF40060DE54 /* Sportify */ = {
 			isa = PBXGroup;
 			children = (
+				16DAC75A2BF7C19E00EAAE79 /* LeagueDetails */,
 				CA9A638E2BFB7771001FF8F0 /* Modules */,
 				CAA1659C2BFB76030021F532 /* Services */,
 				CAA165992BFB75A30021F532 /* Model */,
-				CAC199B82BF7A4EB00BDE612 /* LeaguesScreen */,
-				CA91F0FD2BF8233C00A6BD4A /* TeamDetailsScreen */,
-				16DAC75A2BF7C19E00EAAE79 /* LeagueDetails */,
-				CA91F1062BF831D400A6BD4A /* FavoriteScreen */,
-				16C261672BF6706A005947B1 /* SplashScreen */,
 				16DAC7582BF7C11E00EAAE79 /* Home */,
 				169A74C02BF55DF40060DE54 /* AppDelegate.swift */,
 				169A74C22BF55DF40060DE54 /* SceneDelegate.swift */,
@@ -224,6 +220,10 @@
 		CA9A638E2BFB7771001FF8F0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				CAC199B82BF7A4EB00BDE612 /* LeaguesScreen */,
+				CA91F1062BF831D400A6BD4A /* FavoriteScreen */,
+				16C261672BF6706A005947B1 /* SplashScreen */,
+				CA91F0FD2BF8233C00A6BD4A /* TeamDetailsScreen */,
 			);
 			path = Modules;
 			sourceTree = "<group>";

@@ -50,7 +50,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var leagueController = LeaguesViewController()
+        let leagueController = LeaguesViewController()
         leagueController.sport = sport[indexPath.row].lowercased()
         navigationController?.pushViewController(leagueController, animated: true)
     }
