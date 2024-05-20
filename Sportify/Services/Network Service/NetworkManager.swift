@@ -40,4 +40,52 @@ class NetworkManager: NetworkProtocol {
             
         }
     }
+    
+    func fetchFixtures(sportType: String, leagueId: String, from: String, to: String, completion: @escaping(Result<FixtureResponse, Error>) -> Void) {
+         let apiRequest = "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&leagueId=\(leagueId)&from=\(from)&to=\(to)&APIkey=\(API_KEY)"
+        
+        let url = URL(string: apiRequest)
+        
+        AF.request(url!).validate().response{
+            response in
+            switch response.result{
+            case .success(let data):
+                do{
+                    let jsonData = try JSONDecoder().decode(FixtureResponse.self, from: data!)
+                    completion(.success(jsonData))
+                } catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
+    func fetchTeams(sportType: String, leagueId: String, completion: @escaping(Result<TeamResponse, Error>) -> Void) {
+        let apiRequest = "https://apiv2.allsportsapi.com/\(sportType)/?met=Teams&leagueId=\(leagueId)&APIkey=\(API_KEY)"
+        
+        let url = URL(string: apiRequest)
+        
+        AF.request(url!).validate().response{
+            response in
+            switch response.result{
+            case .success(let data):
+                do{
+                    let jsonData = try JSONDecoder().decode(TeamResponse.self, from: data!)
+                    completion(.success(jsonData))
+                } catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
+            }
+            
+        }
+    }
 }
