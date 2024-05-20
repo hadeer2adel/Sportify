@@ -17,6 +17,7 @@
 		16C2616B2BF670B2005947B1 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C261692BF670B2005947B1 /* SplashViewController.xib */; };
 		834D8F541829312806DD1897 /* Pods_Sportify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38293C41C04A058196CD2E97 /* Pods_Sportify.framework */; };
 		CAC199B72BF7921900BDE612 /* Sprotifiy.json in Resources */ = {isa = PBXBuildFile; fileRef = CAC199B62BF7921800BDE612 /* Sprotifiy.json */; };
+		CACE7F8A2BFB4049001702B7 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACE7F892BFB4049001702B7 /* test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		38293C41C04A058196CD2E97 /* Pods_Sportify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sportify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9537C74A99DFA3ED219D6375 /* Pods-Sportify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sportify.release.xcconfig"; path = "Target Support Files/Pods-Sportify/Pods-Sportify.release.xcconfig"; sourceTree = "<group>"; };
 		CAC199B62BF7921800BDE612 /* Sprotifiy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Sprotifiy.json; sourceTree = "<group>"; };
+		CACE7F892BFB4049001702B7 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		EACD7EF03FED138469C103F1 /* Pods-Sportify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sportify.debug.xcconfig"; path = "Target Support Files/Pods-Sportify/Pods-Sportify.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 		169A74BF2BF55DF40060DE54 /* Sportify */ = {
 			isa = PBXGroup;
 			children = (
+				CACE7F882BFB402A001702B7 /* Test */,
 				16C261672BF6706A005947B1 /* SplashScreen */,
 				169A74C02BF55DF40060DE54 /* AppDelegate.swift */,
 				169A74C22BF55DF40060DE54 /* SceneDelegate.swift */,
@@ -97,6 +100,14 @@
 				38293C41C04A058196CD2E97 /* Pods_Sportify.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CACE7F882BFB402A001702B7 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				CACE7F892BFB4049001702B7 /* test.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		F4D4FD4275BE7A505DFB7D12 /* Pods */ = {
@@ -225,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				169A74C52BF55DF40060DE54 /* ViewController.swift in Sources */,
+				CACE7F8A2BFB4049001702B7 /* test.swift in Sources */,
 				169A74CB2BF55DF50060DE54 /* Sportify.xcdatamodeld in Sources */,
 				169A74C12BF55DF40060DE54 /* AppDelegate.swift in Sources */,
 				169A74C32BF55DF40060DE54 /* SceneDelegate.swift in Sources */,
