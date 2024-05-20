@@ -71,7 +71,17 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 10
     }
 
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nextVC = LeagueDetailsViewController()
+        nextVC.sport = self.sport
+        if let league_key = leagueViewModel?.league?[indexPath.row].league_key {
+            nextVC.leagueId = String(league_key)
+        } else {
+            nextVC.leagueId = nil
+        }
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+   
     /*
     // MARK: - Navigation
 

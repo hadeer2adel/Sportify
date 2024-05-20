@@ -9,21 +9,67 @@ import Foundation
 
 class LeagueDetailsViewModel{
     
-    var bindResultToViewController : (()->()) = {}
-    var league : [League]?{
+    var bindUpComingEventsToViewController : (()->()) = {}
+    var upComingEvents : [Fixture]?{
         didSet{
-            bindResultToViewController()
+            bindUpComingEventsToViewController()
         }
     }
     
-    func getLeagues(sportType: String){
-        NetworkManager.shared.fetchLeagues(sportType: sportType) { [weak self] result in
+    var bindLatestResultsToViewController : (()->()) = {}
+    var latestResults : [Fixture]?{
+        didSet{
+            bindLatestResultsToViewController()
+        }
+    }
+    
+    var bindTeamsToViewController : (()->()) = {}
+    var teams : [Team]?{
+        didSet{
+            bindTeamsToViewController()
+        }
+    }
+    
+    func getUpComingEvents(sportType: String, leagueId: String){
+        let dateConverter = DateConverter()
+        let from = dateConverter.getCurrentDate()
+        let to = dateConverter.getOtherDate(lastYear: false)
+        
+        NetworkManager.shared.fetchFixtures(sportType: sportType, leagueId: leagueId, from: from, to: to) { [weak self] result in
             switch result {
-            case .success(let leagueResponse):
-                self?.league = leagueResponse.result
+            case .success(let response):
+                self?.upComingEvents = response.result
             case .failure(let error):
-                print("Error fetching leagues: \(error.localizedDescription)")
+                print("Error fetching upComingEvents: \(error.localizedDescription)")
             }
         }
     }
+    
+    func getLatestResults(sportType: String, leagueId: String){
+        let dateConverter = DateConverter()
+        let from = dateConverter.getOtherDate(lastYear: true)
+        let to = dateConverter.getCurrentDate()
+        
+        NetworkManager.shared.fetchFixtures(sportType: sportType, leagueId: leagueId, from: from, to: to) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.latestResults = response.result
+            case .failure(let error):
+                print("Error fetching latestResults: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func getTeams(sportType: String, leagueId: String){
+        
+        NetworkManager.shared.fetchTeams(sportType: sportType, leagueId: leagueId) { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.teams = response.result
+            case .failure(let error):
+                print("Error fetching teams: \(error.localizedDescription)")
+            }
+        }
+    }
+
 }
