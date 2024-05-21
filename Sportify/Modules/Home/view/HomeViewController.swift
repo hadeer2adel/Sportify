@@ -11,6 +11,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     @IBOutlet weak var sportCollectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var sportCollectionView: UICollectionView!
+    var sport = ["Football","Basketball","Tennis","Cricket"]
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,31 +38,21 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = sportCollectionView.dequeueReusableCell(withReuseIdentifier: "sportCell", for: indexPath) as! SportCell
     
-        var sport = "Football"
-        switch indexPath.row {
-        case 0:
-            sport = "Football"
-            break
-        case 1:
-            sport = "Basketball"
-            break
-        case 2:
-            sport = "Tennis"
-            break
-        case 3:
-            sport = "Cricket"
-            break
-        default:
-            break
-        }
-        cell.sportName.text = sport
-        cell.sportImage.image = UIImage(named: sport)
+        
+        cell.sportName.text = sport[indexPath.row]
+        cell.sportImage.image = UIImage(named: sport[indexPath.row].lowercased())
     
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width/2.1, height: view.frame.width/2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let leagueController = LeaguesViewController()
+        leagueController.sport = sport[indexPath.row].lowercased()
+        navigationController?.pushViewController(leagueController, animated: true)
     }
 
 }

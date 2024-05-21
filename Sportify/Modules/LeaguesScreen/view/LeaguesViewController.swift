@@ -6,32 +6,48 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var leagueTable: UITableView!
+    var leagueViewModel: LeagueViewModel?
+    var sport : String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         leagueTable.register(UINib(nibName: "LeaguesTableViewCell", bundle: nil), forCellReuseIdentifier: "LeagueCell")
-        
+        let word = sport!.prefix(1).uppercased() + sport!.dropFirst() + " Leagues"
+        self.title = word
         leagueTable.estimatedRowHeight = 100
         leagueTable.rowHeight = UITableView.automaticDimension
         
         leagueTable.dataSource = self
         leagueTable.delegate = self
+        
+        leagueViewModel = LeagueViewModel()
+        leagueViewModel?.getLeagues(sportType: sport!)
+        leagueViewModel?.bindResultToViewController = { [weak self] in
+            DispatchQueue.main.async {
+                self?.leagueTable.reloadData()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return self.leagueViewModel?.league?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeaguesTableViewCell
         
-        cell.leagueName.text = "Premier League"
-        cell.leagueImage.image = UIImage(named: "Premier_League")
+        cell.leagueName.text = self.leagueViewModel?.league?[indexPath.row].league_name
+        if let logoString = self.leagueViewModel?.league?[indexPath.row].league_logo, let logoURL = URL(string: logoString) {
+            cell.leagueImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "Cup"))
+        } else {
+            cell.leagueImage.image = UIImage(named: "Cup")
+        }
         cell.leagueImage.layer.cornerRadius = cell.leagueImage.bounds.width / 2
         cell.leagueImage.clipsToBounds = true
         return cell
@@ -53,7 +69,17 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 10
     }
 
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nextVC = LeagueDetailsViewController()
+        nextVC.sport = self.sport
+        if let league_key = leagueViewModel?.league?[indexPath.row].league_key {
+            nextVC.leagueId = String(league_key)
+        } else {
+            nextVC.leagueId = nil
+        }
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+   
     /*
     // MARK: - Navigation
 

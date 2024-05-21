@@ -6,14 +6,55 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    var viewModel: LeagueDetailsViewModel?
+    var sport : String?
+    var leagueId : String?
+    
+    private var isHeartFilled = false
+    private var heartButton: UIBarButtonItem!
+    
+    private var indicator : UIActivityIndicatorView?
+
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        modifyNavigationBar()
+        setupCollectionView()
+        setupViewModel()
+        
+        indicator = UIActivityIndicatorView(style: .medium)
+        indicator!.center = view.center
+        indicator!.startAnimating()
+        view.addSubview(indicator!)
+        
+        viewModel?.getUpComingEvents(sportType: sport!, leagueId: leagueId!)
+        viewModel?.getLatestResults(sportType: sport!, leagueId: leagueId!)
+        viewModel?.getTeams(sportType: sport!, leagueId: leagueId!)
+
+    }
+    
+    private func modifyNavigationBar(){
+        navigationItem.backBarButtonItem?.title = "Back"
+        navigationItem.title = "League Details"
+        
+        heartButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(heartButtonTapped))
+        navigationItem.rightBarButtonItem = heartButton
+    }
+    @objc func heartButtonTapped() {
+           isHeartFilled.toggle()
+
+        let systemImageName = isHeartFilled ? "heart.fill" : "heart"
+        heartButton.image = UIImage(systemName: systemImageName)
+   }
+    
+    private func setupCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -33,8 +74,31 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         }
         collectionView.setCollectionViewLayout(layout, animated: true)
     }
-
-    func upComingSection()-> NSCollectionLayoutSection {
+    
+    private func setupViewModel(){
+        viewModel = LeagueDetailsViewModel()
+        
+        viewModel?.bindUpComingEventsToViewController = { [weak self] in
+            DispatchQueue.main.async {
+                self?.indicator?.stopAnimating ()
+                self?.collectionView.reloadData()
+            }
+        }
+        viewModel?.bindLatestResultsToViewController = { [weak self] in
+            DispatchQueue.main.async {
+                self?.indicator?.stopAnimating ()
+                self?.collectionView.reloadData()
+            }
+        }
+        viewModel?.bindTeamsToViewController = { [weak self] in
+            DispatchQueue.main.async {
+                self?.indicator?.stopAnimating ()
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
+    private func upComingSection()-> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
@@ -64,13 +128,13 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         return section
     }
     
-    func latestSection()-> NSCollectionLayoutSection {
+    private func latestSection()-> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalWidth(0.4))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 32, bottom: 0, trailing: 0)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 32, bottom: 0, trailing: 0)
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 8, bottom: 40, trailing: 8)
@@ -83,13 +147,13 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         return section
     }
     
-    func teamSection() -> NSCollectionLayoutSection {
+    private func teamSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(100))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12)
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 8, bottom: 40, trailing: 8)
@@ -111,7 +175,14 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        switch(section){
+        case 0:
+            return viewModel?.upComingEvents?.count ?? 0
+        case 1:
+            return viewModel?.latestResults?.count ?? 0
+        default :
+            return viewModel?.teams?.count ?? 0
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -120,19 +191,33 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EventCell
             cell.layer.borderColor = UIColor.systemBlue.cgColor
+            let data = viewModel!.upComingEvents![indexPath.row]
             cell.score.text = "VS"
-            return cell
+            return setDataOnCell(data: data, cell: cell)
+            
         }
         else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EventCell
             cell.layer.borderColor = UIColor.darkGray.cgColor
-            cell.score.text = "3 - 1"
-            return cell
+            let data = viewModel!.latestResults![indexPath.row]
+            cell.score.text = data.event_final_result
+            if sport == "cricket" {
+                cell.score.text = (data.event_home_final_result ?? "0") + " - " + (data.event_away_final_result ?? "0")
+            }
+            return setDataOnCell(data: data, cell: cell)
+
         }
         else {
             cellIdentifier = "teamCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! TeamCell
             
+            if let logoString = viewModel?.teams?[indexPath.row].team_logo, let logoURL = URL(string: logoString) {
+                cell.teamImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "TeamLogo"))
+            } else {
+                cell.teamImage.image = UIImage(named: "TeamLogo")
+            }
+            cell.teamImage.layer.cornerRadius = cell.teamImage.bounds.width / 2
+            cell.teamImage.clipsToBounds = true
             return cell
         }
         
@@ -154,4 +239,50 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         return header
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.section == 2){
+            let teamDetailsController = TeamDetailsViewController();
+            teamDetailsController.team = viewModel?.teams?[indexPath.row]
+            navigationController?.pushViewController(teamDetailsController, animated: true)
+        }
+    }
+    
+    private func setDataOnCell(data: Fixture, cell: EventCell) -> EventCell{
+        
+        cell.date.text = data.event_date
+        if sport == "cricket" {
+            cell.date.text = data.event_date_start
+        }
+        cell.time.text = data.event_time
+        
+        cell.teamName_1.text = data.event_home_team
+        cell.teamName_2.text = data.event_away_team
+        if sport == "tennis" {
+            cell.teamName_1.text = data.event_first_player
+            cell.teamName_2.text = data.event_second_player
+        }
+        var image1 = data.home_team_logo
+        var image2 = data.away_team_logo
+        if sport == "basketball" || sport == "cricket" {
+            image1 = data.event_home_team_logo
+            image2 = data.event_away_team_logo
+        }
+        else if sport == "tennis" {
+            image1 = data.event_first_player_logo
+            image2 = data.event_second_player_logo
+        }
+        if let logoString1 = image1, let logoURL1 = URL(string: logoString1) {
+            cell.teamImage_1.kf.setImage(with: logoURL1, placeholder: UIImage(named: "TeamLogo"))
+        } else {
+            cell.teamImage_1.image = UIImage(named: "TeamLogo")
+        }
+        if let logoString2 = image2, let logoURL2 = URL(string: logoString2) {
+            cell.teamImage_2.kf.setImage(with: logoURL2, placeholder: UIImage(named: "TeamLogo"))
+        } else {
+            cell.teamImage_2.image = UIImage(named: "TeamLogo")
+        }
+        
+        return cell
+    }
+
 }
