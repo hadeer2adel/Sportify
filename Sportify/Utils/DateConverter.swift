@@ -23,12 +23,12 @@ class DateConverter{
         let currentDate = Date()
         let calendar = Calendar.current
         
-        var value = 1
+        var value = 3
         if lastYear{
-            value = -1
+            value = -3
         }
         
-        if let newYear = calendar.date(byAdding: .year, value: value, to: currentDate) {
+        if let newYear = calendar.date(byAdding: .month, value: value, to: currentDate) {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let date = dateFormatter.string(from: newYear)
