@@ -14,12 +14,10 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var coachName: UILabel!
     @IBOutlet weak var playerTable: UITableView!
     
+    var team : Team?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        teamImage.image = UIImage(named: "Alahly")
-        teamName.text = "Al Ahly"
-        coachName.text = "Coach : Marcel Koller"
         
         playerTable.register(UINib(nibName: "PlayerTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerCell")
         playerTable.estimatedRowHeight = 100
@@ -27,20 +25,35 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             
         self.playerTable.dataSource = self
         self.playerTable.delegate = self
+        
+        
+        if let teamImageString = team?.team_logo, let logoURL = URL(string: teamImageString) {
+            teamImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "Cup"))
+        } else {
+            teamImage.image = UIImage(named: "Cup")
+        }
+        teamName.text = team?.team_name
+        coachName.text = team?.coaches?[0].coach_name
 
         // Do any additional setup after loading the view.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return team?.players?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell", for: indexPath) as! PlayerTableViewCell
-        cell.playerName.text="Ali Maaloul"
-        cell.playerNumber.text = "21"
-        cell.playerAge.text = "34 yrs"
-        cell.playerImage.image = UIImage(named: "AliMaaloul")
+        cell.playerName.text = team?.players?[indexPath.row].player_name
+        let number = "No: " + (team?.players?[indexPath.row].player_number)!
+        cell.playerNumber.text = number
+        let age = (team?.players?[indexPath.row].player_age)! + " yrs"
+        cell.playerAge.text = age
+        if let imageString = team?.players?[indexPath.row].player_image, let logoURL = URL(string: imageString) {
+            cell.playerImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "playerAvatar"))
+        } else {
+            cell.playerImage.image = UIImage(named: "playerAvatar")
+        }
         cell.playerImage.layer.cornerRadius = cell.playerImage.bounds.width / 2
         cell.playerImage.clipsToBounds = true
         return cell

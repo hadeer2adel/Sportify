@@ -244,4 +244,12 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         return header
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.section == 2){
+            let teamDetailsController = TeamDetailsViewController();
+            teamDetailsController.team = viewModel?.teams?[indexPath.row]
+            navigationController?.pushViewController(teamDetailsController, animated: true)
+        }
+    }
+    
 }

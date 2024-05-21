@@ -12,7 +12,6 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var leagueTable: UITableView!
     var leagueViewModel: LeagueViewModel?
-    var league : [League]?
     var sport : String?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,21 +30,20 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         leagueViewModel?.getLeagues(sportType: sport!)
         leagueViewModel?.bindResultToViewController = { [weak self] in
             DispatchQueue.main.async {
-                self?.league = self?.leagueViewModel?.league
                 self?.leagueTable.reloadData()
             }
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return league?.count ?? 0
+        return self.leagueViewModel?.league?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeagueCell", for: indexPath) as! LeaguesTableViewCell
         
-        cell.leagueName.text = league?[indexPath.row].league_name
-        if let logoString = league?[indexPath.row].league_logo, let logoURL = URL(string: logoString) {
+        cell.leagueName.text = self.leagueViewModel?.league?[indexPath.row].league_name
+        if let logoString = self.leagueViewModel?.league?[indexPath.row].league_logo, let logoURL = URL(string: logoString) {
             cell.leagueImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "Cup"))
         } else {
             cell.leagueImage.image = UIImage(named: "Cup")
