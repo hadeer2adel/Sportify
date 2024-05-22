@@ -71,12 +71,10 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nextVC = LeagueDetailsViewController()
-        nextVC.sport = self.sport
-        if let league_key = leagueViewModel?.league?[indexPath.row].league_key {
-            nextVC.leagueId = String(league_key)
-        } else {
-            nextVC.leagueId = nil
-        }
+        let league = leagueViewModel?.league?[indexPath.row]
+            
+        nextVC.league = FavLeagues(id: String(league?.league_key ?? 0), name: league?.league_name, logo: league?.country_logo, sport: self.sport)
+        
         navigationController?.pushViewController(nextVC, animated: true)
     }
    

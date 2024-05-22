@@ -11,9 +11,8 @@ import Kingfisher
 class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var viewModel: LeagueDetailsViewModel?
-    var sport : String?
-    var leagueId : String?
-    
+    var league: FavLeagues?
+
     private var isHeartFilled = false
     private var heartButton: UIBarButtonItem!
     
@@ -25,18 +24,18 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupViewModel()
         modifyNavigationBar()
         setupCollectionView()
-        setupViewModel()
         
         indicator = UIActivityIndicatorView(style: .medium)
         indicator!.center = view.center
         indicator!.startAnimating()
         view.addSubview(indicator!)
         
-        viewModel?.getUpComingEvents(sportType: sport!, leagueId: leagueId!)
-        viewModel?.getLatestResults(sportType: sport!, leagueId: leagueId!)
-        viewModel?.getTeams(sportType: sport!, leagueId: leagueId!)
+        viewModel?.getUpComingEvents(sportType: (league?.sport)!, leagueId: (league?.id)!)
+        viewModel?.getLatestResults(sportType: (league?.sport)!, leagueId: (league?.id)!)
+        viewModel?.getTeams(sportType: (league?.sport)!, leagueId: (league?.id)!)
 
     }
     
@@ -48,10 +47,13 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         navigationItem.rightBarButtonItem = heartButton
     }
     @objc func heartButtonTapped() {
-           isHeartFilled.toggle()
-
-        let systemImageName = isHeartFilled ? "heart.fill" : "heart"
-        heartButton.image = UIImage(systemName: systemImageName)
+        isHeartFilled.toggle()
+        if isHeartFilled {
+            heartButton.image = UIImage(systemName: "heart.fill")
+            viewModel?.addToFavourite(league: league!)
+        } else {
+            heartButton.image = UIImage(systemName: "heart")
+        }
    }
     
     private func setupCollectionView(){
@@ -76,7 +78,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     private func setupViewModel(){
-        viewModel = LeagueDetailsViewModel()
+        viewModel = LeagueDetailsViewModel(cachingManager: CachingManager())
         
         viewModel?.bindUpComingEventsToViewController = { [weak self] in
             DispatchQueue.main.async {
@@ -201,7 +203,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
             cell.layer.borderColor = UIColor.darkGray.cgColor
             let data = viewModel!.latestResults![indexPath.row]
             cell.score.text = data.event_final_result
-            if sport == "cricket" {
+            if league?.sport == "cricket" {
                 cell.score.text = (data.event_home_final_result ?? "0") + " - " + (data.event_away_final_result ?? "0")
             }
             return setDataOnCell(data: data, cell: cell)
@@ -250,24 +252,24 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     private func setDataOnCell(data: Fixture, cell: EventCell) -> EventCell{
         
         cell.date.text = data.event_date
-        if sport == "cricket" {
+        if league?.sport == "cricket" {
             cell.date.text = data.event_date_start
         }
         cell.time.text = data.event_time
         
         cell.teamName_1.text = data.event_home_team
         cell.teamName_2.text = data.event_away_team
-        if sport == "tennis" {
+        if league?.sport == "tennis" {
             cell.teamName_1.text = data.event_first_player
             cell.teamName_2.text = data.event_second_player
         }
         var image1 = data.home_team_logo
         var image2 = data.away_team_logo
-        if sport == "basketball" || sport == "cricket" {
+        if league?.sport == "basketball" || league?.sport == "cricket" {
             image1 = data.event_home_team_logo
             image2 = data.event_away_team_logo
         }
-        else if sport == "tennis" {
+        else if league?.sport == "tennis" {
             image1 = data.event_first_player_logo
             image2 = data.event_second_player_logo
         }
