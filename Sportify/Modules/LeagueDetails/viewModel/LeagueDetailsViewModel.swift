@@ -81,4 +81,11 @@ class LeagueDetailsViewModel{
         cachingManager.insertToFavourite(league: league)
     }
 
+    func deleteFromFavourite(leagueID: String) {
+        cachingManager.deleteFromFavourite(leagueID: leagueID)
+    }
+    
+    func isSportFavorited(favLeague: FavLeagues) -> Bool{
+        return cachingManager.isSportFavorited(favLeague: favLeague)
+    }
 }

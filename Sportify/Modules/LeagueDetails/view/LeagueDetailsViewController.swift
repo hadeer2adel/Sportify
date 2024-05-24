@@ -25,6 +25,8 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         super.viewDidLoad()
         
         setupViewModel()
+        isHeartFilled = viewModel!.isSportFavorited(favLeague: league!)
+        
         modifyNavigationBar()
         setupCollectionView()
         
@@ -43,7 +45,8 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         navigationItem.backBarButtonItem?.title = "Back"
         navigationItem.title = "League Details"
         
-        heartButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(heartButtonTapped))
+        let imageName = isHeartFilled ? "heart.fill" : "heart"
+        heartButton = UIBarButtonItem(image: UIImage(systemName: imageName), style: .plain, target: self, action: #selector(heartButtonTapped))
         navigationItem.rightBarButtonItem = heartButton
     }
     @objc func heartButtonTapped() {
@@ -53,6 +56,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
             viewModel?.addToFavourite(league: league!)
         } else {
             heartButton.image = UIImage(systemName: "heart")
+            viewModel?.deleteFromFavourite(leagueID: league!.id!)
         }
    }
     

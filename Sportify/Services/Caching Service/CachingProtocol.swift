@@ -11,4 +11,5 @@ protocol CachingProtocol {
     func insertToFavourite(league: FavLeagues)
     func getFromFavourite() -> [FavLeagues]?
     func deleteFromFavourite(leagueID: String)
+    func isSportFavorited(favLeague : FavLeagues) -> Bool 
 }
