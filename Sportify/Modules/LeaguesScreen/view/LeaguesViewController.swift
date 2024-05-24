@@ -15,11 +15,9 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
     var sport : String?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        modifyNavigationBar()
         // Do any additional setup after loading the view.
         leagueTable.register(UINib(nibName: "LeaguesTableViewCell", bundle: nil), forCellReuseIdentifier: "LeagueCell")
-        let word = sport!.prefix(1).uppercased() + sport!.dropFirst() + " Leagues"
-        self.title = word
         leagueTable.estimatedRowHeight = 100
         leagueTable.rowHeight = UITableView.automaticDimension
         
@@ -73,9 +71,15 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         let nextVC = LeagueDetailsViewController()
         let league = leagueViewModel?.league?[indexPath.row]
             
-        nextVC.league = FavLeagues(id: String(league?.league_key ?? 0), name: league?.league_name, logo: league?.country_logo, sport: self.sport)
+        nextVC.league = FavLeagues(id: String(league?.league_key ?? 0), name: league?.league_name, logo: league?.league_logo, sport: self.sport)
         
         navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    private func modifyNavigationBar(){
+        navigationItem.backBarButtonItem?.title = "Back"
+        let word = sport!.prefix(1).uppercased() + sport!.dropFirst() + " Leagues"
+        navigationItem.title = word
     }
    
     /*
