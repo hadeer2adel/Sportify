@@ -18,7 +18,7 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        modifyNavigationBar()
         playerTable.register(UINib(nibName: "PlayerTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerCell")
         playerTable.estimatedRowHeight = 100
         playerTable.rowHeight = UITableView.automaticDimension
@@ -45,10 +45,18 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell", for: indexPath) as! PlayerTableViewCell
         cell.playerName.text = team?.players?[indexPath.row].player_name
-        let number = "No: " + (team?.players?[indexPath.row].player_number)!
-        cell.playerNumber.text = number
-        let age = (team?.players?[indexPath.row].player_age)! + " yrs"
-        cell.playerAge.text = age
+        let number = team?.players?[indexPath.row].player_number
+        if (number != "") {
+            cell.playerNumber.text = "No: " + number!
+        }else{
+            cell.playerNumber.text = ""
+        }
+        let age = team?.players?[indexPath.row].player_age
+        if (age != "") {
+            cell.playerAge.text = age! + " yrs"
+        }else{
+            cell.playerAge.text = ""
+        }
         if let imageString = team?.players?[indexPath.row].player_image, let logoURL = URL(string: imageString) {
             cell.playerImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "playerAvatar"))
         } else {
@@ -65,6 +73,10 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
            return 100
+    }
+    
+    private func modifyNavigationBar(){
+        navigationItem.backBarButtonItem?.title = "Back"
     }
     
 

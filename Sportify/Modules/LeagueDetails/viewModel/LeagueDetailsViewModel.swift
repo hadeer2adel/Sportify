@@ -9,6 +9,11 @@ import Foundation
 
 class LeagueDetailsViewModel{
     
+    private var cachingManager: CachingProtocol
+    init(cachingManager: CachingProtocol) {
+        self.cachingManager = cachingManager
+    }
+    
     var bindUpComingEventsToViewController : (()->()) = {}
     var upComingEvents : [Fixture]?{
         didSet{
@@ -70,6 +75,10 @@ class LeagueDetailsViewModel{
                 print("Error fetching teams: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func addToFavourite(league: FavLeagues){
+        cachingManager.insertToFavourite(league: league)
     }
 
 }
