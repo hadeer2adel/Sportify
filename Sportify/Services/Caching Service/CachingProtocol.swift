@@ -8,8 +8,8 @@
 import Foundation
 
 protocol CachingProtocol {
-    func insertToFavourite(league: FavLeagues)
-    func getFromFavourite() -> [FavLeagues]?
-    func deleteFromFavourite(leagueID: String)
-    func isSportFavorited(favLeague : FavLeagues) -> Bool 
+    func insertToFavourite(appDelegate: AppDelegate, league: FavLeagues)
+    func getFromFavourite(appDelegate: AppDelegate) -> [FavLeagues]?
+    func deleteFromFavourite(appDelegate: AppDelegate, leagueID: String)
+    func isSportFavorited(appDelegate: AppDelegate, leagueID: String) -> Bool
 }

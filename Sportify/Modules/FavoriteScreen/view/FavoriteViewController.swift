@@ -70,7 +70,8 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func setupViewModel(){
-        viewModel = FavouriteViewModel(cachingManager: CachingManager())
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        viewModel = FavouriteViewModel(cachingManager: CachingManager(), appDelegate: appDelegate)
         leagues = viewModel?.getFromFavourite() ?? []
         favoriteTable.reloadData()
     }

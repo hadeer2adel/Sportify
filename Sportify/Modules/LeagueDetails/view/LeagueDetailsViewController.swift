@@ -25,7 +25,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         super.viewDidLoad()
         
         setupViewModel()
-        isHeartFilled = viewModel!.isSportFavorited(favLeague: league!)
+        isHeartFilled = viewModel!.isSportFavorited(leagueID: league!.id!)
         
         modifyNavigationBar()
         setupCollectionView()
@@ -51,12 +51,18 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     }
     @objc func heartButtonTapped() {
         isHeartFilled.toggle()
+        
         if isHeartFilled {
-            heartButton.image = UIImage(systemName: "heart.fill")
-            viewModel?.addToFavourite(league: league!)
+            makeAlert(title: "Insert"){ [weak self] in
+                self?.heartButton.image = UIImage(systemName: "heart.fill")
+                self?.viewModel?.addToFavourite(league: (self?.league)!)
+            }
         } else {
-            heartButton.image = UIImage(systemName: "heart")
-            viewModel?.deleteFromFavourite(leagueID: league!.id!)
+            makeAlert(title: "Delete"){ [weak self] in
+                guard let self = self else { return }
+                self.heartButton.image = UIImage(systemName: "heart")
+                self.viewModel?.deleteFromFavourite(leagueID: (self.league?.id)!)
+            }
         }
    }
     
@@ -83,7 +89,8 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     private func setupViewModel(){
-        viewModel = LeagueDetailsViewModel(cachingManager: CachingManager())
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        viewModel = LeagueDetailsViewModel(cachingManager: CachingManager(), appDelegate: appDelegate)
         
         viewModel?.bindUpComingEventsToViewController = { [weak self] in
             DispatchQueue.main.async {
@@ -297,6 +304,18 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         }
         
         return cell
+    }
+    
+    func makeAlert(title: String, action: @escaping ()->Void) {
+        let alertFailed = UIAlertController(title: title, message: "Are you sure you want to \(title.lowercased()) this item?", preferredStyle: .alert)
+        let actionNo = UIAlertAction(title: "NO", style: .default, handler: nil)
+
+        let actionOk = UIAlertAction(title: "OK", style: .default) { _ in
+            action()
+        }
+        alertFailed.addAction(actionNo)
+        alertFailed.addAction(actionOk)
+        self.present(alertFailed, animated: true, completion: nil)
     }
 
 }
