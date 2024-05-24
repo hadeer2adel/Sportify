@@ -67,6 +67,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         collectionView.register(UINib(nibName: "HeaderCollectionView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         collectionView.register(UINib(nibName: "EventCell", bundle: nil), forCellWithReuseIdentifier: "eventCell")
         collectionView.register(UINib(nibName: "TeamCell", bundle: nil), forCellWithReuseIdentifier: "teamCell")
+        collectionView.register(UINib(nibName: "NoDataCell", bundle: nil), forCellWithReuseIdentifier: "noDataCell")
         
         let layout = UICollectionViewCompositionalLayout {sectionIndex,enviroment in
             switch sectionIndex {
@@ -183,19 +184,21 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
-            return viewModel?.upComingEvents?.count ?? 0
+            return viewModel?.upComingEvents?.count ?? 1
         case 1:
-            return viewModel?.latestResults?.count ?? 0
+            return viewModel?.latestResults?.count ?? 1
         default :
-            return viewModel?.teams?.count ?? 0
+            return viewModel?.teams?.count ?? 1
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       var cellIdentifier = "eventCell"
         
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EventCell
+            if viewModel?.upComingEvents == nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: "noDataCell", for: indexPath) as! NoDataCell
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
             cell.layer.borderColor = UIColor.systemBlue.cgColor
             let data = viewModel!.upComingEvents![indexPath.row]
             cell.score.text = "VS"
@@ -203,7 +206,10 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
             
         }
         else if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EventCell
+            if viewModel?.latestResults == nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: "noDataCell", for: indexPath) as! NoDataCell
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
             cell.layer.borderColor = UIColor.darkGray.cgColor
             let data = viewModel!.latestResults![indexPath.row]
             cell.score.text = data.event_final_result
@@ -214,8 +220,10 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
 
         }
         else {
-            cellIdentifier = "teamCell"
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! TeamCell
+            if viewModel?.teams == nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: "noDataCell", for: indexPath) as! NoDataCell
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath) as! TeamCell
             
             if let logoString = viewModel?.teams?[indexPath.row].team_logo, let logoURL = URL(string: logoString) {
                 cell.teamImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "TeamLogo"))
@@ -246,7 +254,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(indexPath.section == 2){
+        if(indexPath.section == 2 && viewModel?.teams != nil){
             let teamDetailsController = TeamDetailsViewController();
             teamDetailsController.team = viewModel?.teams?[indexPath.row]
             navigationController?.pushViewController(teamDetailsController, animated: true)

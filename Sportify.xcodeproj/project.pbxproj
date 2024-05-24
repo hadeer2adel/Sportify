@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1637478A2C0125A100F41412 /* NoDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163747882C0125A100F41412 /* NoDataCell.swift */; };
+		1637478B2C0125A100F41412 /* NoDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 163747892C0125A100F41412 /* NoDataCell.xib */; };
 		169A74C12BF55DF40060DE54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169A74C02BF55DF40060DE54 /* AppDelegate.swift */; };
 		169A74C32BF55DF40060DE54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169A74C22BF55DF40060DE54 /* SceneDelegate.swift */; };
 		169A74C52BF55DF40060DE54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169A74C42BF55DF40060DE54 /* ViewController.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		163747882C0125A100F41412 /* NoDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataCell.swift; sourceTree = "<group>"; };
+		163747892C0125A100F41412 /* NoDataCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataCell.xib; sourceTree = "<group>"; };
 		169A74BD2BF55DF40060DE54 /* Sportify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sportify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		169A74C02BF55DF40060DE54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		169A74C22BF55DF40060DE54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -219,14 +223,16 @@
 		16DAC75B2BF7C1DD00EAAE79 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				16C5B1E82BF8F91F00893426 /* LeagueDetailsViewController.swift */,
+				16C5B1E92BF8F91F00893426 /* LeagueDetailsViewController.xib */,
 				16DAC7602BF7C44800EAAE79 /* TeamCell.swift */,
 				16DAC7612BF7C44800EAAE79 /* TeamCell.xib */,
 				16DAC7642BF7C48C00EAAE79 /* EventCell.swift */,
 				16DAC7652BF7C48C00EAAE79 /* EventCell.xib */,
-				16C5B1E82BF8F91F00893426 /* LeagueDetailsViewController.swift */,
-				16C5B1E92BF8F91F00893426 /* LeagueDetailsViewController.xib */,
 				16C5B1F22BF90E7000893426 /* HeaderCollectionView.swift */,
 				16C5B1F32BF90E7000893426 /* HeaderCollectionView.xib */,
+				163747882C0125A100F41412 /* NoDataCell.swift */,
+				163747892C0125A100F41412 /* NoDataCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -440,6 +446,7 @@
 				16DAC7632BF7C44800EAAE79 /* TeamCell.xib in Resources */,
 				16DAC7572BF7C10200EAAE79 /* HomeViewController.xib in Resources */,
 				16DAC76B2BF7E95B00EAAE79 /* SportCell.xib in Resources */,
+				1637478B2C0125A100F41412 /* NoDataCell.xib in Resources */,
 				16DAC7672BF7C48C00EAAE79 /* EventCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,6 +520,7 @@
 				16D1EE752BFBB1F7000E4DB1 /* TeamResponse.swift in Sources */,
 				16C2616A2BF670B2005947B1 /* SplashViewController.swift in Sources */,
 				CAA1659B2BFB75DC0021F532 /* LeagueResponse.swift in Sources */,
+				1637478A2C0125A100F41412 /* NoDataCell.swift in Sources */,
 				CAC199BC2BF7A53C00BDE612 /* LeaguesViewController.swift in Sources */,
 				16BC2CEA2BFE1F56005D09CD /* CachingManager.swift in Sources */,
 				CA9A63922BFB7811001FF8F0 /* LeagueViewModel.swift in Sources */,
