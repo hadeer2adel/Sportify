@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreData
-import UIKit
+
 
 class CachingManager: CachingProtocol{
 
@@ -56,7 +56,6 @@ class CachingManager: CachingProtocol{
     
     
     func deleteFromFavourite(appDelegate: AppDelegate, leagueID: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         let deleteRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavLeague")
@@ -74,7 +73,6 @@ class CachingManager: CachingProtocol{
     }
     
     func isSportFavorited(appDelegate: AppDelegate, leagueID: String) -> Bool {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FavLeague")
