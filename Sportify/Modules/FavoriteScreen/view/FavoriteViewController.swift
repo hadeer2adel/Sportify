@@ -7,19 +7,21 @@
 
 import UIKit
 import Lottie
+import Reachability
 
 class FavoriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var favoriteTable: UITableView!
+    var reachability: Reachability!
     var ainimation: LottieAnimationView!
     var viewModel: FavouriteViewModel?
     var leagues = [FavLeagues]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        reachability = try! Reachability()
         setupViewModel()
-        checkData()
+        //checkData()
         // Do any additional setup after loading the view.
         favoriteTable.register(UINib(nibName: "LeaguesTableViewCell", bundle: nil), forCellReuseIdentifier: "LeagueCell")
         
@@ -31,8 +33,16 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupViewModel()
-        checkData()
+        //checkData()
+        favoriteTable.register(UINib(nibName: "LeaguesTableViewCell", bundle: nil), forCellReuseIdentifier: "LeagueCell")
+        
+        favoriteTable.estimatedRowHeight = 100
+        favoriteTable.rowHeight = UITableView.automaticDimension
+        
+        favoriteTable.dataSource = self
+        favoriteTable.delegate = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,13 +90,12 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
         if editingStyle == .delete {
             let alertFailed = UIAlertController(title: "Delete", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
             let actionNo = UIAlertAction(title: "NO", style: .default, handler: nil)
-
             let actionOk = UIAlertAction(title: "OK", style: .default) { _ in
                 let sportToDelete = self.leagues[indexPath.row]
                 self.viewModel?.deleteFromFavourite(leagueID: sportToDelete.id ?? "")
                 self.leagues.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                self.checkData()
+                //self.checkData()
             }
             alertFailed.addAction(actionNo)
             alertFailed.addAction(actionOk)
@@ -95,15 +104,21 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nextVC = LeagueDetailsViewController()
-        let league = leagues[indexPath.row]
-            
-        nextVC.league = FavLeagues(id: String(league.id!), name: league.name, logo: league.logo, sport: league.sport)
-        
-        navigationController?.pushViewController(nextVC, animated: true)
+        if reachability.connection != .unavailable {
+            let nextVC = LeagueDetailsViewController()
+            let league = leagues[indexPath.row]
+                
+            nextVC.league = FavLeagues(id: String(league.id!), name: league.name, logo: league.logo, sport: league.sport)
+            navigationController?.pushViewController(nextVC, animated: true)
+        }else{
+            let alertFailed = UIAlertController(title: "Error", message: "No Enternet Connection", preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: "Ok", style: .destructive, handler: nil)
+            alertFailed.addAction(actionOk)
+            self.present(alertFailed, animated: true, completion: nil)
+        }
     }
     
-    private func checkData(){
+    /*private func checkData(){
         if(leagues.count == 0){
             favoriteTable.isHidden = true
             ainimation = .init(name: "favorite.json")
@@ -121,7 +136,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
-    }
+    }*/
     
     
 

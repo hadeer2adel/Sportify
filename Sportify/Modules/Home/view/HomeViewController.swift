@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import Reachability
 
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var sportCollectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var sportCollectionView: UICollectionView!
     var sport = ["Football","Basketball","Tennis","Cricket"]
+    var reachability: Reachability!
     override func viewDidLoad() {
         super.viewDidLoad()
+        reachability = try! Reachability()
         
         if let flowLayout = sportCollectionViewLayout {
             flowLayout.minimumLineSpacing = 40
@@ -50,9 +53,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let leagueController = LeaguesViewController()
-        leagueController.sport = sport[indexPath.row].lowercased()
-        navigationController?.pushViewController(leagueController, animated: true)
+        if reachability.connection != .unavailable {
+            let leagueController = LeaguesViewController()
+            leagueController.sport = sport[indexPath.row].lowercased()
+            navigationController?.pushViewController(leagueController, animated: true)
+        }else{
+            let alertFailed = UIAlertController(title: "Error", message: "No Enternet Connection", preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: "Ok", style: .destructive, handler: nil)
+            alertFailed.addAction(actionOk)
+            self.present(alertFailed, animated: true, completion: nil)
+        }
     }
-
 }
