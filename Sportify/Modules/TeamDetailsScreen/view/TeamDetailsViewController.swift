@@ -18,7 +18,7 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        modifyNavigationBar()
+        //setupBackButton()
         playerTable.register(UINib(nibName: "PlayerTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerCell")
         playerTable.estimatedRowHeight = 100
         playerTable.rowHeight = UITableView.automaticDimension
@@ -75,12 +75,9 @@ class TeamDetailsViewController: UIViewController, UITableViewDelegate, UITableV
            return 100
     }
     
-    private func modifyNavigationBar(){
-        navigationItem.backBarButtonItem?.title = "Back"
+    @IBAction func backBtn(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
-    
-
-
     /*
     // MARK: - Navigation
 

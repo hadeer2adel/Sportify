@@ -264,7 +264,9 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         if(indexPath.section == 2 && viewModel?.teams != nil){
             let teamDetailsController = TeamDetailsViewController();
             teamDetailsController.team = viewModel?.teams?[indexPath.row]
-            navigationController?.pushViewController(teamDetailsController, animated: true)
+            teamDetailsController.modalPresentationStyle = .fullScreen
+            present(teamDetailsController, animated: true)
+            //navigationController?.pushViewController(teamDetailsController, animated: true)
         }
     }
     
