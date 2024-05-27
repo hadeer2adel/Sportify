@@ -36,6 +36,7 @@
 		16DAC7672BF7C48C00EAAE79 /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16DAC7652BF7C48C00EAAE79 /* EventCell.xib */; };
 		16DAC76A2BF7E95B00EAAE79 /* SportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DAC7682BF7E95B00EAAE79 /* SportCell.swift */; };
 		16DAC76B2BF7E95B00EAAE79 /* SportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16DAC7692BF7E95B00EAAE79 /* SportCell.xib */; };
+		16F634AC2C050F3900CF9B57 /* CachingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F634AB2C050F3900CF9B57 /* CachingManagerTests.swift */; };
 		834D8F541829312806DD1897 /* Pods_Sportify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38293C41C04A058196CD2E97 /* Pods_Sportify.framework */; };
 		CA674A9C2C03BF9500A55859 /* SportifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA674A9B2C03BF9500A55859 /* SportifyTests.swift */; };
 		CA674AA72C03CA0600A55859 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA674AA62C03CA0600A55859 /* MockNetworkService.swift */; };
@@ -103,6 +104,7 @@
 		16DAC7652BF7C48C00EAAE79 /* EventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
 		16DAC7682BF7E95B00EAAE79 /* SportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCell.swift; sourceTree = "<group>"; };
 		16DAC7692BF7E95B00EAAE79 /* SportCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SportCell.xib; sourceTree = "<group>"; };
+		16F634AB2C050F3900CF9B57 /* CachingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingManagerTests.swift; sourceTree = "<group>"; };
 		38293C41C04A058196CD2E97 /* Pods_Sportify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sportify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9537C74A99DFA3ED219D6375 /* Pods-Sportify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sportify.release.xcconfig"; path = "Target Support Files/Pods-Sportify/Pods-Sportify.release.xcconfig"; sourceTree = "<group>"; };
 		CA674A992C03BF9500A55859 /* SportifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SportifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,6 +299,7 @@
 		CA674AA32C03C00400A55859 /* Caching Service */ = {
 			isa = PBXGroup;
 			children = (
+				16F634AB2C050F3900CF9B57 /* CachingManagerTests.swift */,
 			);
 			path = "Caching Service";
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16F634AC2C050F3900CF9B57 /* CachingManagerTests.swift in Sources */,
 				CA674AA72C03CA0600A55859 /* MockNetworkService.swift in Sources */,
 				CA674AAE2C03DA8800A55859 /* NetworkExpectationsTest.swift in Sources */,
 				CA674A9C2C03BF9500A55859 /* SportifyTests.swift in Sources */,

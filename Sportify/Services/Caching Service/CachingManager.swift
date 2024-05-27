@@ -86,4 +86,19 @@ class CachingManager: CachingProtocol{
             return false
         }
     }
+    
+    func deleteAllFavourites(appDelegate: AppDelegate) {
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let deleteRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavLeague")
+        do {
+            let results = try context.fetch(deleteRequest)
+            for object in results {
+                context.delete(object as! NSManagedObject)
+            }
+            try context.save()
+        } catch let error {
+            print("Failed to delete favorite league: \(error.localizedDescription)")
+        }
+    }
 }
