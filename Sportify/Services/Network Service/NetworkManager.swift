@@ -11,7 +11,7 @@ import Alamofire
 
 class NetworkManager: NetworkProtocol {
     
-    let API_KEY = "a8598aa67b782a07a5f2f07a59ea5c05932f4a1ed511bb0ad6baa794d5cf6881"
+    let API_KEY = "46498dbb3694c6fba354a474bfedd0f0af2806e9f622550c701ebe18fce9e424"
     
     static let shared : NetworkManager = NetworkManager()
     
