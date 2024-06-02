@@ -25,6 +25,8 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         super.viewDidLoad()
         
         setupViewModel()
+        isHeartFilled = viewModel!.isSportFavorited(leagueID: league!.id!)
+        
         modifyNavigationBar()
         setupCollectionView()
         
@@ -43,16 +45,24 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         navigationItem.backBarButtonItem?.title = "Back"
         navigationItem.title = "League Details"
         
-        heartButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(heartButtonTapped))
+        let imageName = isHeartFilled ? "heart.fill" : "heart"
+        heartButton = UIBarButtonItem(image: UIImage(systemName: imageName), style: .plain, target: self, action: #selector(heartButtonTapped))
         navigationItem.rightBarButtonItem = heartButton
     }
     @objc func heartButtonTapped() {
         isHeartFilled.toggle()
+        
         if isHeartFilled {
-            heartButton.image = UIImage(systemName: "heart.fill")
-            viewModel?.addToFavourite(league: league!)
+            makeAlert(title: "Insert"){ [weak self] in
+                self?.heartButton.image = UIImage(systemName: "heart.fill")
+                self?.viewModel?.addToFavourite(league: (self?.league)!)
+            }
         } else {
-            heartButton.image = UIImage(systemName: "heart")
+            makeAlert(title: "Delete"){ [weak self] in
+                guard let self = self else { return }
+                self.heartButton.image = UIImage(systemName: "heart")
+                self.viewModel?.deleteFromFavourite(leagueID: (self.league?.id)!)
+            }
         }
    }
     
@@ -63,6 +73,7 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         collectionView.register(UINib(nibName: "HeaderCollectionView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         collectionView.register(UINib(nibName: "EventCell", bundle: nil), forCellWithReuseIdentifier: "eventCell")
         collectionView.register(UINib(nibName: "TeamCell", bundle: nil), forCellWithReuseIdentifier: "teamCell")
+        collectionView.register(UINib(nibName: "NoDataCell", bundle: nil), forCellWithReuseIdentifier: "noDataCell")
         
         let layout = UICollectionViewCompositionalLayout {sectionIndex,enviroment in
             switch sectionIndex {
@@ -78,7 +89,8 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     private func setupViewModel(){
-        viewModel = LeagueDetailsViewModel(cachingManager: CachingManager())
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        viewModel = LeagueDetailsViewModel(cachingManager: CachingManager(), appDelegate: appDelegate)
         
         viewModel?.bindUpComingEventsToViewController = { [weak self] in
             DispatchQueue.main.async {
@@ -179,19 +191,21 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
-            return viewModel?.upComingEvents?.count ?? 0
+            return viewModel?.upComingEvents?.count ?? 1
         case 1:
-            return viewModel?.latestResults?.count ?? 0
+            return viewModel?.latestResults?.count ?? 1
         default :
-            return viewModel?.teams?.count ?? 0
+            return viewModel?.teams?.count ?? 1
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       var cellIdentifier = "eventCell"
         
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EventCell
+            if viewModel?.upComingEvents == nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: "noDataCell", for: indexPath) as! NoDataCell
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
             cell.layer.borderColor = UIColor.systemBlue.cgColor
             let data = viewModel!.upComingEvents![indexPath.row]
             cell.score.text = "VS"
@@ -199,7 +213,10 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
             
         }
         else if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EventCell
+            if viewModel?.latestResults == nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: "noDataCell", for: indexPath) as! NoDataCell
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
             cell.layer.borderColor = UIColor.darkGray.cgColor
             let data = viewModel!.latestResults![indexPath.row]
             cell.score.text = data.event_final_result
@@ -210,8 +227,10 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
 
         }
         else {
-            cellIdentifier = "teamCell"
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! TeamCell
+            if viewModel?.teams == nil {
+                return collectionView.dequeueReusableCell(withReuseIdentifier: "noDataCell", for: indexPath) as! NoDataCell
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath) as! TeamCell
             
             if let logoString = viewModel?.teams?[indexPath.row].team_logo, let logoURL = URL(string: logoString) {
                 cell.teamImage.kf.setImage(with: logoURL, placeholder: UIImage(named: "TeamLogo"))
@@ -242,10 +261,12 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(indexPath.section == 2){
+        if(indexPath.section == 2 && viewModel?.teams != nil){
             let teamDetailsController = TeamDetailsViewController();
             teamDetailsController.team = viewModel?.teams?[indexPath.row]
-            navigationController?.pushViewController(teamDetailsController, animated: true)
+            teamDetailsController.modalPresentationStyle = .fullScreen
+            present(teamDetailsController, animated: true)
+            //navigationController?.pushViewController(teamDetailsController, animated: true)
         }
     }
     
@@ -285,6 +306,18 @@ class LeagueDetailsViewController: UIViewController, UICollectionViewDelegate, U
         }
         
         return cell
+    }
+    
+    func makeAlert(title: String, action: @escaping ()->Void) {
+        let alertFailed = UIAlertController(title: title, message: "Are you sure you want to \(title.lowercased()) this item?", preferredStyle: .alert)
+        let actionNo = UIAlertAction(title: "NO", style: .default, handler: nil)
+
+        let actionOk = UIAlertAction(title: "OK", style: .default) { _ in
+            action()
+        }
+        alertFailed.addAction(actionNo)
+        alertFailed.addAction(actionOk)
+        self.present(alertFailed, animated: true, completion: nil)
     }
 
 }

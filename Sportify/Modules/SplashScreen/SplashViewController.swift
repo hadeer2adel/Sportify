@@ -14,7 +14,7 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        ainimation = .init(name: "Sprotifiy.json")
+        ainimation = .init(name: "Sport.json")
         ainimation!.frame = view.bounds
         ainimation!.backgroundColor = .white
         ainimation!.contentMode = .scaleAspectFit

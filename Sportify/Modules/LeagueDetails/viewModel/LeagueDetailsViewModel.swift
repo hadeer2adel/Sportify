@@ -8,10 +8,12 @@
 import Foundation
 
 class LeagueDetailsViewModel{
-    
+
     private var cachingManager: CachingProtocol
-    init(cachingManager: CachingProtocol) {
+    private var appDelegate: AppDelegate
+    init(cachingManager: CachingProtocol, appDelegate: AppDelegate) {
         self.cachingManager = cachingManager
+        self.appDelegate = appDelegate
     }
     
     var bindUpComingEventsToViewController : (()->()) = {}
@@ -78,7 +80,14 @@ class LeagueDetailsViewModel{
     }
     
     func addToFavourite(league: FavLeagues){
-        cachingManager.insertToFavourite(league: league)
+        cachingManager.insertToFavourite(appDelegate: appDelegate, league: league)
     }
 
+    func deleteFromFavourite(leagueID: String) {
+        cachingManager.deleteFromFavourite(appDelegate: appDelegate, leagueID: leagueID)
+    }
+    
+    func isSportFavorited(leagueID: String) -> Bool{
+        return cachingManager.isSportFavorited(appDelegate: appDelegate, leagueID: leagueID)
+    }
 }

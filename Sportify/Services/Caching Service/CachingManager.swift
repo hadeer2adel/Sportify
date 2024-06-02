@@ -7,12 +7,11 @@
 
 import Foundation
 import CoreData
-import UIKit
+
 
 class CachingManager: CachingProtocol{
-    
-    func insertToFavourite(league: FavLeagues) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+    func insertToFavourite(appDelegate: AppDelegate, league: FavLeagues) {
         let context = appDelegate.persistentContainer.viewContext
         
         let entity = NSEntityDescription.entity(forEntityName: "FavLeague", in: context)
@@ -31,8 +30,7 @@ class CachingManager: CachingProtocol{
         }
     }
     
-    func getFromFavourite() -> [FavLeagues]? {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    func getFromFavourite(appDelegate: AppDelegate) -> [FavLeagues]? {
         let context = appDelegate.persistentContainer.viewContext
         var leagues : [FavLeagues] = []
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavLeague")
@@ -57,8 +55,7 @@ class CachingManager: CachingProtocol{
     }
     
     
-    func deleteFromFavourite(leagueID: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    func deleteFromFavourite(appDelegate: AppDelegate, leagueID: String) {
         let context = appDelegate.persistentContainer.viewContext
         
         let deleteRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavLeague")
@@ -75,12 +72,11 @@ class CachingManager: CachingProtocol{
         }
     }
     
-    func isSportFavorited(favLeague : FavLeagues) -> Bool {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    func isSportFavorited(appDelegate: AppDelegate, leagueID: String) -> Bool {
         let context = appDelegate.persistentContainer.viewContext
         
         let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FavLeague")
-        request.predicate = NSPredicate(format: "id == %@", favLeague.id ?? "no data")
+        request.predicate = NSPredicate(format: "id == %@", leagueID)
         
         do {
             let count = try context.count(for: request)
@@ -88,6 +84,21 @@ class CachingManager: CachingProtocol{
         } catch {
             print("Error checking if sport is favorited: \(error.localizedDescription)")
             return false
+        }
+    }
+    
+    func deleteAllFavourites(appDelegate: AppDelegate) {
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let deleteRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavLeague")
+        do {
+            let results = try context.fetch(deleteRequest)
+            for object in results {
+                context.delete(object as! NSManagedObject)
+            }
+            try context.save()
+        } catch let error {
+            print("Failed to delete favorite league: \(error.localizedDescription)")
         }
     }
 }
